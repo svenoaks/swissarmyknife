@@ -6,21 +6,19 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 	public class UtilityPagerAdapter extends FragmentPagerAdapter {
 
-		private final String[] TITLES = { "Categories", "Home", "Top Paid", "Top Free", "Top Grossing", "Top New Paid",
-				"Top New Free", "Trending" };
-
+		
 		public UtilityPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			return TITLES[position];
+			return Tool.values()[position].toString();
 		}
 
 		@Override
 		public int getCount() {
-			return TITLES.length;
+			return Tool.values().length;
 		}
 
 		@Override
