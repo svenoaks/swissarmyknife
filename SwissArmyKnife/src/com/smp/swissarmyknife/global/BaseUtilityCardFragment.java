@@ -17,22 +17,19 @@
 package com.smp.swissarmyknife.global;
 
 import com.smp.swissarmyknife.R;
+import static com.smp.swissarmyknife.global.Constants.*;
 import com.smp.swissarmyknife.flashlight.FlashlightFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
-import android.widget.TextView;
 
 public class BaseUtilityCardFragment extends Fragment {
-
-	private static final String ARG_POSITION = "position";
 
 	private Tool type;
 	
@@ -49,7 +46,7 @@ public class BaseUtilityCardFragment extends Fragment {
 		}
 		
 		Bundle b = new Bundle();
-		b.putInt(ARG_POSITION, position);
+		b.putInt(EXTRA_POSITION, position);
 		frag.setArguments(b);
 		return frag;
 	}
@@ -58,7 +55,7 @@ public class BaseUtilityCardFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		type = Tool.values()[getArguments().getInt(ARG_POSITION)];
+		type = Tool.values()[getArguments().getInt(EXTRA_POSITION)];
 	}
 
 	public Tool getType()
