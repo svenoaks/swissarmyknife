@@ -18,6 +18,8 @@ package com.smp.swissarmyknife.global;
 
 import com.smp.swissarmyknife.R;
 import static com.smp.swissarmyknife.global.Constants.*;
+
+import com.smp.swissarmyknife.compass.CompassFragment;
 import com.smp.swissarmyknife.flashlight.FlashlightFragment;
 
 import android.os.Bundle;
@@ -29,30 +31,36 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 
-public class BaseUtilityCardFragment extends Fragment {
+public class BaseUtilityCardFragment extends Fragment
+{
 
 	private Tool type;
-	
-	public static BaseUtilityCardFragment newInstance(int position) {
+
+	public static BaseUtilityCardFragment newInstance(int position)
+	{
 		BaseUtilityCardFragment frag;
-		Tool type = Tool.values()[position]; 
+		Tool type = Tool.values()[position];
 		switch (type)
 		{
 			case FLASHLIGHT:
 				frag = new FlashlightFragment();
 				break;
+			case COMPASS:
+				frag = new CompassFragment();
+				break;
 			default:
 				frag = new BaseUtilityCardFragment();
 		}
-		
+
 		Bundle b = new Bundle();
 		b.putInt(EXTRA_POSITION, position);
 		frag.setArguments(b);
 		return frag;
 	}
-	
+
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 
 		type = Tool.values()[getArguments().getInt(EXTRA_POSITION)];
@@ -62,28 +70,36 @@ public class BaseUtilityCardFragment extends Fragment {
 	{
 		return type;
 	}
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
+		return attachLayout(null);
+	}
+
+	protected View attachLayout(View child)
+	{
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
-		FrameLayout frame = new FrameLayout(getActivity());
-		frame.setLayoutParams(params);
-		
+		FrameLayout grandFather = new FrameLayout(getActivity());
+		grandFather.setLayoutParams(params);
+
 		final int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources()
 				.getDisplayMetrics());
 
-		FrameLayout v = new FrameLayout(getActivity());
+		FrameLayout parent = new FrameLayout(getActivity());
 		params.setMargins(margin, margin, margin, margin);
-		v.setLayoutParams(params);
-		v.setLayoutParams(params);
-		
-		v.setBackgroundResource(R.drawable.background_card);
-		
-		frame.addView(v);
+		parent.setLayoutParams(params);
+		parent.setLayoutParams(params);
 
-		return frame;
+		parent.setBackgroundResource(R.drawable.background_card);
+		
+		if (child != null)
+			parent.addView(child);
+		
+		grandFather.addView(parent);
+
+		return grandFather;
 	}
 
 }

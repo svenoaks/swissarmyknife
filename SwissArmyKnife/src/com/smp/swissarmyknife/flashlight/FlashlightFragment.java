@@ -31,15 +31,8 @@ public class FlashlightFragment extends BaseUtilityCardFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		FrameLayout grandFather = ((FrameLayout) 
-				super.onCreateView(inflater, container, savedInstanceState));
-		
-		FrameLayout parent = (FrameLayout) grandFather.getChildAt(0);
-		
 		View child = inflater.inflate(R.layout.fragment_flashlight, null);
-		parent.addView(child);
-		
-		return grandFather;
+		return attachLayout(child);
 	}
 
 	@Override
