@@ -45,6 +45,8 @@ import android.widget.TextView;
 import com.smp.swissarmyknife.R;
 import com.smp.swissarmyknife.global.BaseUtilityCardFragment;
 
+//needs major cleanup
+
 public class CompassFragment extends BaseUtilityCardFragment implements SensorEventListener
 {
 	private Float azimut;
